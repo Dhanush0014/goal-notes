@@ -1,10 +1,15 @@
-import logo from './logo.svg';
+
 import './App.css';
+
+import SampleGoalData from './Components/Goals/SampleGoalData';
+
+
+
 
 function App() {
   return (
     <div >
-
+       <SampleGoalData />
     </div>
   );
 }
