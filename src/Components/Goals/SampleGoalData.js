@@ -1,4 +1,4 @@
-import React ,{useState} from 'react'
+import React ,{useState,useEffect} from 'react'
 import GoalForm from './GoalForm';
 import GoalList from './GoalList';
 // import GoalList from './GoalList';
@@ -19,6 +19,9 @@ function SampleGoalData(props) {
 
     const [goals,setGoal] = useState(DUMMY_GOALS);
 
+    useEffect(()=>{
+        document.title='Todo';
+      })
 
    const addGoalHandler = (newGoal) =>{
        setGoal((prevGoals)=>{
@@ -26,6 +29,28 @@ function SampleGoalData(props) {
            return [newGoal, ...prevGoals];
        })
    }
+
+   const completedGoalHandler = (completedGoal)=>{
+      
+       setGoal((prevGoals)=>{
+           const updateGoal = prevGoals.filter((goal,index)=>{
+               console.log(index);
+               return index !==completedGoal;
+           })
+           return updateGoal;
+       });
+   }
+
+   let content = (
+    <p style={{ textAlign: 'center' }}>No goals found. Maybe add one?</p>
+  );
+
+  if (goals.length > 0) {
+    content = (
+      <GoalList goals={goals} onComplete={completedGoalHandler} />
+    );
+  }
+
   return (
     <div className='course-goal'>
         <section className='goal-form'>
@@ -33,7 +58,8 @@ function SampleGoalData(props) {
         </section>
         
         <section className='goals'>
-        <GoalList goals ={goals}></GoalList>
+        {/* <GoalList goals ={goals} onComplete={completedGoalHandler} ></GoalList> */}
+        {content}
         </section>
        
     </div>
